@@ -22,6 +22,13 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 350,
 });
 
+//?/
+/////////////////////
+
+let page = 1;
+const per_page = 5;
+let request = '';
+
 const refsEl = {
   form: document.querySelector('.js-form'),
   list: document.querySelector('.js-list'),
@@ -38,7 +45,8 @@ async function handlerForm(event) {
 
   const normalizeInputValue = query.value.trim().toLowerCase();
 
-  if (!normalizeInputValue) {
+  request = normalizeInputValue;
+  if (!request) {
     return;
   }
 
@@ -46,7 +54,8 @@ async function handlerForm(event) {
   refsEl.list.innerHTML = preLoader;
 
   try {
-    const response = await makeAxios(normalizeInputValue);
+    page = 1;
+    const response = await makeAxios(request, page, per_page);
 
     if (!response.data.hits.length) {
       iziToast.error({
