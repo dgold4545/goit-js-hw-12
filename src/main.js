@@ -14,6 +14,7 @@ import * as renderFunc from './js/render-functions';
 
 //!!!!!!!
 import axios from 'axios';
+import { addClassHidden } from './js/helper';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
@@ -32,6 +33,7 @@ let request = '';
 const refsEl = {
   form: document.querySelector('.js-form'),
   list: document.querySelector('.js-list'),
+  loadmMore: document.querySelector('.load-more'),
 };
 
 refsEl.form.addEventListener('submit', handlerForm);
@@ -54,7 +56,10 @@ async function handlerForm(event) {
   refsEl.list.innerHTML = preLoader;
 
   try {
+    ///
     page = 1;
+    ///
+
     const response = await makeAxios(request, page, per_page);
 
     if (!response.data.hits.length) {
@@ -77,6 +82,8 @@ async function handlerForm(event) {
 
     const markup = renderFunc.makeMarkupItemS(response.data.hits);
     refsEl.list.innerHTML = markup;
+
+    addClassHidden(refsEl.loadmMore);
   } catch {
     console.log(error);
   } finally {
