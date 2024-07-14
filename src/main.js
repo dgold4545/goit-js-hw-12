@@ -5,7 +5,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 // Описаний у документації
 import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
+// Додатковий імпорт стилів/
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { makeAxios } from './js/pixabay-api';
@@ -60,6 +60,7 @@ async function handlerForm(event) {
 
     if (!response.data.hits.length) {
       classHidden.addClassHidden(refsEl.loadMore);
+
       iziToast.error({
         theme: 'dark',
         message:
