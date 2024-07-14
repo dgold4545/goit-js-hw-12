@@ -12,7 +12,6 @@ import { makeAxios } from './js/pixabay-api';
 
 import * as renderFunc from './js/render-functions';
 
-//!!!!!!!
 import axios from 'axios';
 import * as classHidden from './js/helper';
 
@@ -22,9 +21,6 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 350,
 });
-
-//?/
-/////////////////////
 
 let page = 1;
 const per_page = 15;
@@ -55,8 +51,6 @@ async function handlerForm(event) {
   const preLoader = renderFunc.preLoader();
   refsEl.list.innerHTML = preLoader;
 
-  // classHidden.addClassHidden(refsEl.loadMore);
-
   try {
     ///
     page = 1;
@@ -85,10 +79,8 @@ async function handlerForm(event) {
     const markup = renderFunc.makeMarkupItemS(response.data.hits);
     refsEl.list.innerHTML = markup;
 
-    /////
-
     let limit = per_page;
-    // Кількість груп в колекції
+
     const totalPages = Math.ceil(response.data.totalHits / limit);
 
     if (page >= totalPages) {
@@ -100,8 +92,6 @@ async function handlerForm(event) {
     } else {
       classHidden.removeClassHidden(refsEl.loadMore);
     }
-
-    /////
   } catch {
     console.log(error);
   } finally {
@@ -109,8 +99,6 @@ async function handlerForm(event) {
     lightbox.refresh();
   }
 }
-
-///===============////
 
 refsEl.loadMore.addEventListener('click', handlerLoadMoreBtn);
 
@@ -151,12 +139,10 @@ async function handlerLoadMoreBtn(event) {
 
     //
     let limit = per_page;
-    // Кількість груп в колекції
+
     const totalPages = Math.ceil(response.data.totalHits / limit);
 
     if (page === totalPages) {
-      // classHidden.addClassHidden(refsEl.loadMore);
-
       return iziToast.info({
         position: 'topRight',
         message: "We're sorry, but you've reached the end of search results.",
@@ -164,9 +150,6 @@ async function handlerLoadMoreBtn(event) {
     } else {
       classHidden.removeClassHidden(refsEl.loadMore);
     }
-
-    // const preLoader = renderFunc.preLoader();
-    // document.querySelector('.loaderR').innerHTML = preLoader;
   } catch {
     console.log(error);
   } finally {
