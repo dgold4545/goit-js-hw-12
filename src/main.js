@@ -27,7 +27,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 /////////////////////
 
 let page = 1;
-const per_page = 3;
+const per_page = 76;
 let request = '';
 
 const refsEl = {
@@ -86,7 +86,21 @@ async function handlerForm(event) {
     refsEl.list.innerHTML = markup;
 
     /////
-    classHidden.removeClassHidden(refsEl.loadMore);
+
+    let limit = per_page;
+    // Кількість груп в колекції
+    const totalPages = Math.ceil(response.data.totalHits / limit);
+    console.log(response.data);
+    console.log(totalPages);
+
+    if (page >= totalPages) {
+      return iziToast.info({
+        position: 'topRight',
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+    } else {
+      classHidden.removeClassHidden(refsEl.loadMore);
+    }
 
     /////
   } catch {
@@ -136,6 +150,25 @@ async function handlerLoadMoreBtn(event) {
     const markup = renderFunc.makeMarkupItemS(response.data.hits);
     refsEl.list.insertAdjacentHTML('beforeend', markup);
 
+    //
+    let limit = per_page;
+    // Кількість груп в колекції
+    const totalPages = Math.ceil(response.data.totalHits / limit);
+    console.log(response.data);
+    console.log('current page', page);
+    console.log(totalPages);
+
+    if (page === totalPages) {
+      // classHidden.addClassHidden(refsEl.loadMore);
+
+      return iziToast.info({
+        position: 'topRight',
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+    } else {
+      classHidden.removeClassHidden(refsEl.loadMore);
+    }
+
     // const preLoader = renderFunc.preLoader();
     // document.querySelector('.loaderR').innerHTML = preLoader;
   } catch {
@@ -143,6 +176,6 @@ async function handlerLoadMoreBtn(event) {
   } finally {
     lightbox.refresh();
     document.querySelector('.loaderR').innerHTML = '';
-    classHidden.removeClassHidden(refsEl.loadMore);
+    // classHidden.removeClassHidden(refsEl.loadMore);
   }
 }
