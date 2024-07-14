@@ -27,7 +27,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 /////////////////////
 
 let page = 1;
-const per_page = 76;
+const per_page = 15;
 let request = '';
 
 const refsEl = {
@@ -176,6 +176,19 @@ async function handlerLoadMoreBtn(event) {
   } finally {
     lightbox.refresh();
     document.querySelector('.loaderR').innerHTML = '';
-    // classHidden.removeClassHidden(refsEl.loadMore);
+    //
+    const listItem = document.querySelector('.list__card');
+
+    const rect = listItem.getBoundingClientRect();
+
+    console.log(rect);
+    const doubleHeigth = rect.height * 2;
+    console.log(doubleHeigth);
+    //
+    window.scrollBy({
+      top: doubleHeigth,
+      left: 100,
+      behavior: 'smooth',
+    });
   }
 }
