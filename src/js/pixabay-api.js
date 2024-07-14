@@ -8,7 +8,7 @@ export async function makeAxios(userRequest, page, per_page) {
     q: userRequest,
     image_type: 'photo',
     orientation: 'horizontal',
-    safesearch: false,
+    safesearch: true,
     page: page,
     per_page: per_page,
   });

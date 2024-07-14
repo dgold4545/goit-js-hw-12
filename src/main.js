@@ -90,10 +90,9 @@ async function handlerForm(event) {
     let limit = per_page;
     // Кількість груп в колекції
     const totalPages = Math.ceil(response.data.totalHits / limit);
-    console.log(response.data);
-    console.log(totalPages);
 
     if (page >= totalPages) {
+      classHidden.addClassHidden(refsEl.loadMore);
       return iziToast.info({
         position: 'topRight',
         message: "We're sorry, but you've reached the end of search results.",
@@ -154,9 +153,6 @@ async function handlerLoadMoreBtn(event) {
     let limit = per_page;
     // Кількість груп в колекції
     const totalPages = Math.ceil(response.data.totalHits / limit);
-    console.log(response.data);
-    console.log('current page', page);
-    console.log(totalPages);
 
     if (page === totalPages) {
       // classHidden.addClassHidden(refsEl.loadMore);
@@ -181,9 +177,8 @@ async function handlerLoadMoreBtn(event) {
 
     const rect = listItem.getBoundingClientRect();
 
-    console.log(rect);
     const doubleHeigth = rect.height * 2;
-    console.log(doubleHeigth);
+
     //
     window.scrollBy({
       top: doubleHeigth,
