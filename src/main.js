@@ -59,7 +59,7 @@ async function handlerForm(event) {
     const response = await makeAxios(request, page, per_page);
 
     if (!response.data.hits.length) {
-      classHidden.addClassHidden(refsEl.loadMore);
+      // classHidden.addClassHidden(refsEl.loadMore);
 
       iziToast.error({
         theme: 'dark',
